@@ -17,8 +17,13 @@ const io = new SocketServer(server, {
 app.use(cors())
 app.use(morgan('dev'));
 
-io.on('connection', () => {
+io.on('connection', (socket) => {
     console.log('hola probando socket')
+
+    socket.on('message', (data) => {
+        console.log(data);
+        socket.broadcast.emit('message', data)
+    })
 })
 
 
